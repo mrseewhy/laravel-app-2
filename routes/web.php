@@ -25,3 +25,4 @@ Route::get('/posts/{id}', function($id) {
     })->name('pages');
 
 Route::get('/contact', [PagesController::class, 'contact']);
+Route::get('/services', [PagesController::class, 'services']);
