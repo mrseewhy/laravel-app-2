@@ -52,6 +52,9 @@ class PostsController extends Controller
         $post->title  = $request->title;
         $post->body  = $request->body;
         $post->save();
+
+        $request->session()->flash('status', 'blog post have been created');
+
         return redirect("/post/$post->id");
         // return redirect()->route('post.show', ['post'=> $post->id]);
     }
@@ -78,6 +81,8 @@ class PostsController extends Controller
     public function edit($id)
     {
         //
+        $post = Post::find($id);
+        return view('edit')->with('post', $post);
     }
 
     /**
@@ -90,6 +95,22 @@ class PostsController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $post = Post::find($id);
+
+
+        $validated = $request->validate([
+            'title' => 'required|min:5|unique:posts|max:255',
+            'body' => 'required|min:20',
+        ]);
+
+        $post->title  = $request->title;
+        $post->body  = $request->body;
+        $post->save();
+
+        $request->session()->flash('status', 'blog post have been edited');
+
+        return redirect("/post/$post->id");
+        // return redirect()->route('post.show', ['post'=> $post->id]);
     }
 
     /**
@@ -101,5 +122,9 @@ class PostsController extends Controller
     public function destroy($id)
     {
         //
+        $post = Post::find($id);
+        $post->delete();
+        session()->flash('status', 'blog post have been deleted');
+        return redirect('/post');
     }
 }

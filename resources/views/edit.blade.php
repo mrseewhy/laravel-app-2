@@ -8,11 +8,12 @@
 </head>
 <body>
     <h1>Create post form</h1>
-    <form action="{{route('post.store')}}" method="post">
+    <form action="{{route('post.update', ['post' => $post->id])}}" method="post">
         @csrf
+        @method('PUT')
         <div>
             <label for="title">Title: </label>
-            <input type="text" name="title" id="" value="{{old('title')}}">
+            <input type="text" name="title" id="" value="{{$post->title}}">
             <div>@error('title')
                 <p>{{$message}}</p>
                 @enderror
@@ -20,7 +21,7 @@
         </div>
         <div>
             <label for="body">Body: </label>
-            <textarea name="body" id="body" cols="30" rows="10" >{{old('body')}}</textarea>
+            <textarea name="body" id="body" cols="30" rows="10" >{{$post->body}}</textarea>
         </div>
         <div>@error('body')
             <p>{{$message}}</p>

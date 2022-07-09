@@ -8,6 +8,9 @@
 </head>
 <body>
     <h1>This is the posts page</h1>
+    @if (session('status'))
+     <p>{{ session('status') }}</p>
+     @endif
     @if(count($posts) == 0)
     <div>
         <h4>No Posts to show!</h4>
