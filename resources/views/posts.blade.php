@@ -17,7 +17,7 @@
     @else
     @foreach ($posts as $post)
         <div>
-            <h4>{{$post['title']}}</h4>
+           <a href="/post/{{$post->id}}"> <h3>{{$post['title']}}</h3></a>
             <p>{{$post->body}}</p>
         </div>
    @endforeach

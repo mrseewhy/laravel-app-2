@@ -41,6 +41,19 @@ class PostsController extends Controller
     public function store(Request $request)
     {
         //
+        $post = new Post();
+
+
+        $validated = $request->validate([
+            'title' => 'required|min:5|unique:posts|max:255',
+            'body' => 'required|min:20',
+        ]);
+
+        $post->title  = $request->title;
+        $post->body  = $request->body;
+        $post->save();
+        return redirect("/post/$post->id");
+        // return redirect()->route('post.show', ['post'=> $post->id]);
     }
 
     /**
@@ -52,6 +65,8 @@ class PostsController extends Controller
     public function show($id)
     {
         //
+        $post = Post::find($id);
+        return view('show')->with('post', $post);
     }
 
     /**
